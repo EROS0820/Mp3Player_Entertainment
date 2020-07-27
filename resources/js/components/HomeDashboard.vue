@@ -113,7 +113,7 @@
 			<div id="audplayer" style="display:none;"></div>
 			
         </section>
-         <ScrollTopArrow></ScrollTopArrow>
+        <ScrollTopArrow/>
     </div>
 
 </template>
@@ -121,8 +121,11 @@
 <script>
 
 var player = null;
-
+import ScrollTopArrow from './global/ScrollTopArrow.vue'
 export default {
+    components: {
+        ScrollTopArrow
+    },
     props : {
         items : {
             type: Array
@@ -219,9 +222,6 @@ export default {
                 }
             });
         },
-        scrollToTop() {
-            window.scrollTo(0,0);
-        },
 		playAud(audid) {
 		
 		var newplay = 1;
@@ -305,6 +305,9 @@ $(function() {
         background: #18BC9C;
         border-color: #18BC9C;
         color: white !important;
+    }
+    .btn {
+        padding-top: 0px !important
     }
     .suggestion {
         text-align: center;

@@ -1,9 +1,12 @@
 <template>
     <div id="m">
 		<form class="f" method="post" rel="descargar-mp3">
-			<input class="i" type="text" name="buscar" placeholder="buscar música mp3 gratis" autocomplete="off">
+			<input class="i" type="text" name="buscar" placeholder="buscar música mp3 gratis" autocomplete="off" v-model="fields.search">
 			<button class="i s"><b>BUSCAR</b> <i class="fa-search"></i></button>
 		</form>
+        <div class="suggestion">
+            <a class="btn btn-primary btn-suggestion" v-for="suggestion in suggestions" :key="suggestion" role="button">{{suggestion}}</a>
+        </div>
         <div class="at">
             <div class="shr">
                 <div class="fb"><i class="fa-facebook"></i> Compartir en Facebook</div>
@@ -61,20 +64,42 @@
                 </div>
             </div>
 		</section>
+        <ScrollTopArrow/>
 	</div>
 </template>
 
 <script>
+import ScrollTopArrow from './global/ScrollTopArrow.vue'
 export default {
+    
+    components: {
+        ScrollTopArrow
+    },
     props : {
         tubidy : {
             type: Array
         }
     },
-    
+    computed: {
+        parseSearchKey () {
+            return this.fields.search
+        }
+    },
+    watch: {
+        parseSearchKey: function(val, oldVal) {
+            if (val.length >= 3) {
+                axios.post('/suggest_list', {search: val}).then(response=> {
+                    this.suggestions = response.data.items[1]
+                }).catch(error => {
+                    
+                })
+            }
+        }
+    },
     data(){
         return{
-       
+           fields : {},
+        suggestions: [],
         musiclinks : [
                 {
                     hreflink4 : "{{route('artists')}}",
@@ -102,3 +127,18 @@ export default {
     }
 }
 </script>
+<style>
+    .btn-suggestion {
+        margin-bottom: 10px;
+        margin-right: 5px;
+        background: #18BC9C;
+        border-color: #18BC9C;
+        color: white !important;
+    }
+    .btn {
+        padding-top: 0px !important
+    }
+    .suggestion {
+        text-align: center;
+    }
+</style>
