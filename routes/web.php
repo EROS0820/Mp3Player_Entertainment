@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Route;
     Route::get('/cals/get' , 'CalsDisController@getPorts')->name('cals.get');
 
     Route::post('/search', 'HomeController@search')->name('search');
-
+    Route::post('/suggest_list', 'HomeController@suggest_list')->name('suggest_list');
     $routesContainer = [
         [
             'names' => 'tubidy',

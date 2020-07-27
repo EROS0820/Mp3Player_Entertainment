@@ -10,7 +10,9 @@
                 <i class="fa-search"></i>
             </button>
         </form>
-
+        <div class="suggestion">
+            <a class="btn btn-primary btn-suggestion" v-for="suggestion in suggestions" :key="suggestion" role="button">{{suggestion}}</a>
+        </div>
         <section id="s" >
             <div class="tx">
                 <p>
@@ -111,6 +113,7 @@
 			<div id="audplayer" style="display:none;"></div>
 			
         </section>
+         <ScrollTopArrow></ScrollTopArrow>
     </div>
 
 </template>
@@ -131,6 +134,7 @@ export default {
             songs: {},
             val : "vertical-align:right;",
             fields : {},
+            suggestions: [],
             MUSIC : [
                 "All the music of your favorite artists can be found here; Search, listen, download and share with just one click ...",
                 "Music is one of the few things that inspires us to move our bodies and calm our minds. We are all lovers of the good sounds and the moving lyrics of the artists that we follow, we will always want to be aware of their new hits and be able to listen to them at all times.The solution to this is simple, a web page that will allow you to",
@@ -186,6 +190,22 @@ export default {
     mounted() {
         this.songs = this.items;
     },
+    computed: {
+        parseSearchKey () {
+            return this.fields.search
+        }
+    },
+    watch: {
+        parseSearchKey: function(val, oldVal) {
+            if (val.length >= 3) {
+                axios.post('/suggest_list', {search: val}).then(response=> {
+                    this.suggestions = response.data.items[1]
+                }).catch(error => {
+                    
+                })
+            }
+        }
+    },
     methods: {
         submit() {
             this.errors = {};
@@ -198,6 +218,9 @@ export default {
                     this.errors = error.response.data.errors || {};
                 }
             });
+        },
+        scrollToTop() {
+            window.scrollTo(0,0);
         },
 		playAud(audid) {
 		
@@ -275,3 +298,15 @@ $(function() {
 });
 
 </script>
+<style>
+    .btn-suggestion {
+        margin-bottom: 10px;
+        margin-right: 5px;
+        background: #18BC9C;
+        border-color: #18BC9C;
+        color: white !important;
+    }
+    .suggestion {
+        text-align: center;
+    }
+</style>
