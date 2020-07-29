@@ -41,6 +41,7 @@ class SearchYoutube {
   }
 
   public function searchResult($search) {
+    $searchKey = str_replace(" ","%20",$search);
     $c = new CacheClass();
 
     // die($c->isCached($search));
@@ -54,7 +55,7 @@ class SearchYoutube {
         "http" => array("header" => "User-Agent: Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36")
         ));
         
-      $fuente = @file_get_contents("https://www.youtube.com/search_ajax?style=json&embeddable=1&search_query=".$search, false, $context);
+      $fuente = @file_get_contents("https://www.youtube.com/search_ajax?style=json&embeddable=1&search_query=".$searchKey, false, $context);
   
       $json = json_decode($fuente);
 
