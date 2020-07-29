@@ -21,6 +21,7 @@ require('./sidebar');
 
 // Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('home-dashboard', require('./components/HomeDashboard.vue').default);
+Vue.component('search-dashboard', require('./components/SearchResultDashboard.vue').default);
 Vue.component('tubidy-dashboard', require('./components/TubidyDashboard.vue').default);
 Vue.component('artists-dashboard', require('./components/ArtistsDashboard.vue').default);
 Vue.component('gente-dashboard', require('./components/GenteDashboard.vue').default);

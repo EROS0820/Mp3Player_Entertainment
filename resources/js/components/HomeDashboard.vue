@@ -211,16 +211,20 @@ export default {
     },
     methods: {
         submit() {
-            this.errors = {};
-			var searchobj = {search : encodeURI(this.fields.search)};
-            axios.post('/search', searchobj).then(response => {
-				this.songs = response.data.items.sort((a, b) => (a.time_created < b.time_created) ? 1 : -1);
-                console.log(response);
-            }).catch(error => {
-                if (error.response.status === 422) {
-                    this.errors = error.response.data.errors || {};
-                }
-            });
+            // if (window.location.href.search("search") == -1)
+                window.location = "/search/" + this.fields.search;
+            // else {
+            //     this.errors = {};
+            //     var searchobj = {search : encodeURI(this.fields.search)};
+            //     axios.post('/search', searchobj).then(response => {
+            //         this.songs = response.data.items.sort((a, b) => (a.time_created < b.time_created) ? 1 : -1);
+            //         console.log(response);
+            //     }).catch(error => {
+            //         if (error.response.status === 422) {
+            //             this.errors = error.response.data.errors || {};
+            //         }
+            //     });
+//            }
         },
 		playAud(audid) {
 		

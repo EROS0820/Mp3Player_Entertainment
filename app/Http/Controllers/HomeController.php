@@ -30,7 +30,6 @@ class HomeController extends Controller
         // $searchQuery = new SearchQueryGeneratorController($request->search);
         // $search = $searchQuery->generate();
         $search = $request->search;
-
         $searchYoutube = new SearchYoutube;
         $items = $searchYoutube->searchResult($search);
         return response()->make(compact('items', 200));        
