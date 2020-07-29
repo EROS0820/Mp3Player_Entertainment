@@ -11,7 +11,7 @@
             </button>
         </form>
         <div class="suggestion">
-            <a class="btn btn-primary btn-suggestion" v-for="suggestion in suggestions" :key="suggestion" role="button">{{suggestion}}</a>
+            <a class="btn btn-primary btn-suggestion" v-for="suggestion in suggestions" :key="suggestion" role="button" v-on:click="clickSuggestion(suggestion)">{{suggestion}}</a>
         </div>
         <section id="s" >
             <div class="tx">
@@ -210,9 +210,12 @@ export default {
         }
     },
     methods: {
+        clickSuggestion: function(suggestion) {
+            window.location = "/search/" + encodeURI(suggestion);
+        },
         submit() {
             //if (window.location.href.search("search") == -1)
-                window.location = "/search/" + this.fields.search;
+                window.location = "/search/" + encodeURI(this.fields.search);
             // else {
             //     this.errors = {};
             //     var searchobj = {search : encodeURI(this.fields.search)};
