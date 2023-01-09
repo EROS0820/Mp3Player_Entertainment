@@ -27,7 +27,7 @@
         "@fortawesome/fontawesome-svg-core": "^1.2.30",
         "@fortawesome/free-solid-svg-icons": "^5.14.0",
         "@fortawesome/vue-fontawesome": "^0.1.10",
-        "luxon": "^1.24.1",
+        "luxon": "^1.28.1",
         "vue-datetime": "^1.0.0-beta.13",
         "vue-search-select": "^2.9.3",
         "vue2-datepicker": "^3.6.1",
